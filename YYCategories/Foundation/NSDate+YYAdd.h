@@ -183,6 +183,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (nullable NSDate *)dateWithISOFormatString:(NSString *)dateString;
 
+/**
+Returns a string date in user readble format
+
+ @param dateString The string to parse.
+ @param format     The string's date format.
+
+ @return NSString representing the formatted date string.
+ */
++ (NSString *)dateWithUserReadableString:(NSString *)dateString format:(NSString *)format{
+
 @end
 
 NS_ASSUME_NONNULL_END
