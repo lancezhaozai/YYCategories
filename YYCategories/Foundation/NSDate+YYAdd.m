@@ -185,4 +185,43 @@ YYSYNTH_DUMMY_CLASS(NSDate_YYAdd)
     return [formatter dateFromString:dateString];
 }
 
++ (NSString *)dateWithUserReadableString:(NSString *)dateString format:(NSString *)format{
+    NSString *friendlyDateString = dateString;
+    NSDate *date = [NSDate dateWithString:dateString format:format];
+    if (date) {
+        NSTimeInterval sinceNow = [updateDate timeIntervalSinceNow];
+        
+        if (sinceNow > -600) {
+            friendlyDateString = @"Just Now";
+        } else if (sinceNow > -3600) {
+            friendlyDateString = [NSString stringWithFormat:@"%ldminutes ago", (long)(-sinceNow / 60)];
+        } else if (sinceNow > -86400) {
+            friendlyDateString = [NSString stringWithFormat:@"%ldhours ago", (long)(-sinceNow / 3600)];
+        } else if (sinceNow > -172800) {
+            friendlyDateString = @"Yesterday";
+        } else if (sinceNow > -259200) {
+            friendlyDateString = @"2 days ago";
+        } else if (sinceNow > -345600) {
+            friendlyDateString = @"3 days ago";
+        } else if (sinceNow > -432000) {
+            friendlyDateString = @"4 days ago";
+        } else if (sinceNow > -518400) {
+            friendlyDateString = @"5 days ago";
+        } else if (sinceNow > -604800) {
+            friendlyDateString = @"6 days ago";
+        } else if (sinceNow >= -1209600 && sinceNow < -604800) {
+            friendlyDateString = @"a week ago";
+        } else if (sinceNow >= -1814400 && sinceNow < -1209600) {
+            friendlyDateString = @"2 weeks ago";
+        } else if (sinceNow >= -2419200 && sinceNow < -1814400) {
+            friendlyDateString = @"3 weeks ago";
+        } else if (sinceNow >= -5184000 && sinceNow < -2419200 ) {
+            friendlyDateString = @"a month ago";
+        }
+    } else {
+        NSLog(@"Failed to parse date string.");
+    }
+    return friendlyDateString;
+}
+
 @end
